@@ -948,6 +948,22 @@ ruleTester.run("no-custom-classname", rule, {
       ],
     },
     {
+      code: `<div className="flex skin-summer custom-2 i-heroicons:chevron-up-solid">whitelisted</div>`,
+      options: [
+        {
+          whitelist: ["skin\\-(summer|xmas)", "custom\\-[1-3]", "i-heroicons:chevron-up-solid"],
+        }
+      ]
+    },
+    {
+      code: `<div className="flex skin-summer custom-2 i-heroicons:chevron-up-solid">whitelisted</div>`,
+      options: [
+        {
+          whitelist: ["skin\\-(summer|xmas)", "custom\\-[1-3]", "i-[a-zA-Z]+:[a-zA-Z0-9-]+"],
+        }
+      ]
+    },
+    {
       code: `
       // https://github.com/francoismassart/eslint-plugin-tailwindcss/issues/193
       const button = cva(["font-semibold", "border", "rounded"], {
@@ -1268,7 +1284,7 @@ ruleTester.run("no-custom-classname", rule, {
           whitelist: ["(?!(bg|text)\\-).*"],
         },
       ],
-      errors: generateErrors("bg-404 lg:text-unknown text-color-not-found"),
+      errors: generateErrors("bg-404 text-color-not-found"),
     },
     {
       code: `
